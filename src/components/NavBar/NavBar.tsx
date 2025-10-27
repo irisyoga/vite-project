@@ -46,6 +46,11 @@ export default function NavBar(): JSX.Element {
             RandomDog
           </NavLink>
         </li>
+         <li className={style.listElement}>
+          <NavLink to="zipInfo" className={style.link}>
+            ZipInfo
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

@@ -1,49 +1,61 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
+interface Place {
+  "place name": string;
+  state: string;
+  latitude: string;
+  longitude: string;
+}
+
+interface ZipData {
+  "post code": string;
+  country: string;
+  places: Place[];
+}
 
 function ZipInfo() {
-  const [data, setData] = useState(null); // данные из API
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [data, setData] = useState<ZipData | null>(null);
+  
 
   useEffect(() => {
-    const fetchZipInfo = async () => {
+    (async () => {
       try {
-        const response = await fetch("https://api.zippopotam.us/us/33162");
-        if (!response.ok) {
-          throw new Error("Ошибка при загрузке данных");
-        }
-
-        const result = await response.json();
+        const res = await fetch("https://api.zippopotam.us/us/33162");
+        if (!res.ok) throw new Error("Request error");
+        const result: ZipData = await res.json();
         setData(result);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+      } catch (error) {
+        console.error(error);
       }
-    };
+    })();
+  }, []);
 
-    fetchZipInfo();
-  }, []); // только при mount
+  if (!data) return null;
+
+  const place = data.places?.[0];
+  if (!place) return <p>Нет данных о местах для этого ZIP-кода.</p>;
 
   return (
     <div style={{ textAlign: "center", marginTop: "30px" }}>
       <h2>📮 Информация о ZIP-коде 33162 (Zippopotam API)</h2>
+      <p>
+        <strong>Страна:</strong> {data.country}
+      </p>
+      <p>
+        <strong>Почтовый индекс:</strong> {data["post code"]}
+      </p>
 
-      {loading && <p>Загрузка...</p>}
-      {error && <p style={{ color: "red" }}>Ошибка: {error}</p>}
-
-      {data && (
-        <div style={{ marginTop: "20px" }}>
-          <p><strong>Страна:</strong> {data.country}</p>
-          <p><strong>Почтовый индекс:</strong> {data["post code"]}</p>
-
-          {data.places && data.places.length > 0 && (
-            <div>
-              <p><strong>Город:</strong> {data.places[0]["place name"]}</p>
-              <p><strong>Штат:</strong> {data.places[0].state}</p>
-              <p><strong>Координаты:</strong> {data.places[0].latitude}, {data.places[0].longitude}</p>
-            </div>
-          )}
+      {place && (
+        <div>
+          <p>
+            <strong>Город:</strong> {place["place name"]}
+          </p>
+          <p>
+            <strong>Штат:</strong> {place.state}
+          </p>
+          <p>
+            <strong>Координаты:</strong> {place.latitude}, {place.longitude}
+          </p>
         </div>
       )}
     </div>
