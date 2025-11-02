@@ -36,3 +36,4 @@ export default function UsersPage(): JSX.Element {
     </div>
   );
 }
+

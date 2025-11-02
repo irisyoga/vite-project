@@ -4,7 +4,7 @@ import ThemeContext from "./ThemeContext";
 
 //Интерфейс для пропсов провайдера:
 interface ThemeProviderProps {
-    children:ReactNode
+    children:ReactNode;
 }
 
 // ThemeProviderProps: Интерфейс для пропсов компонента ThemeProvider.

@@ -51,6 +51,24 @@ export default function NavBar(): JSX.Element {
             ZipInfo
           </NavLink>
         </li>
+           <li className={style.listElement}>
+          <NavLink to="productsPage" className={style.link}>
+            ProductsPage
+          </NavLink>
+        </li>
+           <li className={style.listElement}>
+          <NavLink to="money" className={style.link}>
+            Money
+          </NavLink>
+        </li>
+
+          <li className={style.listElement}>
+          <NavLink to="alcohol" className={style.link}>
+            Alcohol
+          </NavLink>
+        </li>
+       
+      
       </ul>
     </nav>
   );

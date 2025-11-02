@@ -1,0 +1,41 @@
+
+
+.home {
+  padding: 2rem;
+  text-align: center;
+}
+
+.home h1 {
+  margin-bottom: 0.5rem;
+}
+
+.home p {
+  margin-bottom: 2rem;
+}
+
+.homeContact {
+  margin-top: 3rem;
+}
+
+
+
+
+.home {
+  padding: 2rem;
+  text-align: center;
+  position: relative; /* важно для корректного позиционирования вложенных блоков */
+}
+
+.home h1 {
+  margin-bottom: 0.5rem;
+}
+
+.home p {
+  margin-bottom: 2rem;
+}
+
+.homeContact {
+  margin-top: 3rem; /* форма окажется чётко ниже */
+  position: relative;
+  z-index: 1;
+}

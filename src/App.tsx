@@ -11,6 +11,10 @@ import UsersPage from "./components/UsersPage/UsersPage";
 import ZipInfo from "./components/ZipInfo/ZipInfo";
 import RandomDog from "./components/RandomDog/RandomDog";
 import PlayGround from "./components/PlayGround/PlayGround";
+import UserPage from "./components/UsersPage/UserPage";
+import Money from "./components/Money/Money";
+import ProductsPage from "./components/ProductsPage/ProductsPage";
+import ProductPage from "./components/ProductsPage/ProductPage";
 
 function App(): JSX.Element {
   return (
@@ -24,8 +28,12 @@ function App(): JSX.Element {
         <Route path="playGround" element={<PlayGround />} />
         <Route path="sandwich" element={<Sandwich />} />
         <Route path="usersPage" element={<UsersPage />} />
+        <Route path="/usersPage/:userId" element={<UserPage />} />
         <Route path="randomDog" element={<RandomDog />} />
         <Route path="zipInfo" element={<ZipInfo />} />
+        <Route path="productsPage" element={<ProductsPage />} />
+        <Route path="/productsPage/:productId" element={<ProductPage />} />
+        <Route path="money" element={<Money />} />
       </Route>
     </Routes>
   );
