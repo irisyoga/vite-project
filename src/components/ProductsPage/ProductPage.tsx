@@ -1,8 +1,6 @@
-
-
 import { useEffect, useState, type JSX } from "react";
 import { Link, useParams } from "react-router-dom";
-import type Product from "./type/Product";
+import type Product from "./type/Product"; 
 import { useTheme } from "../ThemeContext/useTheme";
 import style from "./ProductPage.module.css";
 
@@ -24,7 +22,9 @@ export default function ProductPage(): JSX.Element {
     async function loadProduct(): Promise<void> {
       try {
         if (!productId) return;
-        const res = await fetch(`https://fakestoreapi.com/products/${productId}`);
+        const res = await fetch(
+          `https://fakestoreapi.com/products/${productId}`
+        );
         if (!res.ok) throw new Error("Ошибка загрузки товара");
         const obj = await res.json();
         setProduct(obj);
@@ -36,7 +36,11 @@ export default function ProductPage(): JSX.Element {
   }, [productId]);
 
   return (
-    <div className={`${style.container} ${theme === "dark" ? style.dark : style.light}`}>
+    <div
+      className={`${style.container} ${
+        theme === "dark" ? style.dark : style.light
+      }`}
+    >
       <div className={style.productCard} key={product.id}>
         {/* ✅ Изображение товара по ID */}
         <img
