@@ -1,0 +1,150 @@
+
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  padding: 2rem;
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+/* Светлая тема */
+.light {
+  background-color: #f8f9fb;
+  color: #1a1a1a;
+}
+
+/* Тёмная тема */
+.dark {
+  background-color: #0f1115;
+  color: #f8f9fb;
+}
+
+/* Карточка товара */
+.productCard {
+  background-color: var(--card-bg, #fff);
+  color: inherit;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  margin: 1.5rem 0;
+  width: 100%;
+  max-width: 600px;
+  animation: fadeIn 0.8s ease;
+  transition: 
+    background-color 0.6s ease,
+    color 0.6s ease,
+    box-shadow 0.6s ease,
+    transform 0.3s ease;
+}
+
+.dark .productCard {
+  --card-bg: #1c1f24;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+}
+
+.productCard:hover {
+  transform: translateY(-3px);
+}
+
+/* Изображение товара */
+.productImage {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 1s ease;
+}
+
+/* Текстовые элементы */
+.productTitle,
+.productCategory,
+.productPrice,
+.productDescription {
+  color: inherit;
+  transition: color 0.6s ease;
+}
+
+.productTitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.productCategory {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  margin-bottom: 0.5rem;
+}
+
+.productPrice {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #007aff;
+  margin-bottom: 1rem;
+  transition: color 0.6s ease;
+}
+
+.dark .productPrice {
+  color: #4dabff;
+}
+
+.productDescription {
+  font-size: 1rem;
+  line-height: 1.5;
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+}
+
+/* Кнопка темы */
+.themeToggle {
+  background-color: #007aff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 1.5rem;
+}
+
+.themeToggle:hover {
+  background-color: #005ecc;
+  transform: translateY(-2px);
+}
+
+/* Ссылка "назад" */
+.backLink {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #007aff;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.dark .backLink {
+  color: #4dabff;
+}
+
+.backLink:hover {
+  color: #005ecc;
+}
+
+/* 🔮 Анимации появления и плавного перехода */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

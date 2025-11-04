@@ -1,55 +1,67 @@
+
+
 import { useEffect, useState, type JSX } from "react";
 import { Link, useParams } from "react-router-dom";
 import type Product from "./type/Product";
 import { useTheme } from "../ThemeContext/useTheme";
-import style from "../UsersPage/UserPage.module.css";
+import style from "./ProductPage.module.css";
 
 export default function ProductPage(): JSX.Element {
-  const { theme, toggleTheme } = useTheme(); //Используем хук для темы
+  const { theme, toggleTheme } = useTheme();
   const { productId } = useParams();
   const initialValue: Product = {
     id: 0,
-    title: "string",
-    price: 0.1,
-    description: "string",
-    category: "string",
-    image: "string",
+    title: "",
+    price: 0,
+    description: "",
+    category: "",
+    image: "",
   };
 
   const [product, setProduct] = useState<Product>(initialValue);
+
   useEffect(() => {
     async function loadProduct(): Promise<void> {
-      const res = await fetch(`https://fakestoreapi.com/products/{id}`);
-      const obj = await res.json();
-      setProduct(obj);
+      try {
+        if (!productId) return;
+        const res = await fetch(`https://fakestoreapi.com/products/${productId}`);
+        if (!res.ok) throw new Error("Ошибка загрузки товара");
+        const obj = await res.json();
+        setProduct(obj);
+      } catch (error) {
+        console.error("Ошибка:", error);
+      }
     }
     loadProduct();
   }, [productId]);
 
   return (
-    <div>
-       <div
-      className={`${style.container} ${
-        theme === "dark" ? style.dark : style.light
-      }`}
-    ></div>
-    <div style={{ border: "solid black 2px", margin: "10px" }} key={product.id}>
-      <div>Title: {product.title}</div>
-      <div>Category: {product.category}</div>
-      <div>Price: {product.price}</div>
-      <div>Description:{product.description}</div>
-      <div>Image: {product.image}</div>
+    <div className={`${style.container} ${theme === "dark" ? style.dark : style.light}`}>
+      <div className={style.productCard} key={product.id}>
+        {/* ✅ Изображение товара по ID */}
+        <img
+          src={product.image}
+          alt={product.title}
+          className={style.productImage}
+          onError={(e) => {
+            // Если у товара нет картинки — показываем заглушку
+            (e.target as HTMLImageElement).src = "/images/no-image.jpg";
+          }}
+        />
 
-      <Link to="../productsPage">К списку продуктов</Link>
+        <div className={style.productTitle}>{product.title}</div>
+        <div className={style.productCategory}>{product.category}</div>
+        <div className={style.productPrice}>${product.price}</div>
+        <div className={style.productDescription}>{product.description}</div>
+
+        <Link to="../productsPage" className={style.backLink}>
+          ← К списку продуктов
+        </Link>
+      </div>
+
+      <button type="button" className={style.themeToggle} onClick={toggleTheme}>
+        Переключить тему (текущая: {theme})
+      </button>
     </div>
-       <button
-          type="button"
-          className={style.themeToggle}
-          onClick={toggleTheme}
-        >
-          Переключить тему на (текущая: {theme})
-        </button>
-
-        </div>
   );
 }
